@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Prediction{% endblock %}
+{% block page_title %}Traffic Prediction{% endblock %}
+{% block content %}
+<section class="hero"><div><span>● PREDICTIVE ENGINE</span><h2>Forecast the next<br><em>traffic condition.</em></h2><p>Recent telemetry is analyzed to estimate short-term traffic density and recommend signal action.</p></div></section>
+<section class="grid">
+{% for row in rows %}
+<div class="card"><small>{{row.junction.zone}}</small><h3>{{row.junction.name}}</h3><b class="big">{{row.prediction.vehicles}}</b><span>predicted vehicles</span><hr><strong>{{row.prediction.density}}%</strong><em>{{row.prediction.level}}</em><div class="recommend"><small>SIGNAL RECOMMENDATION</small><b>{{row.signal[0]}}</b><p>{{row.signal[1]}}</p></div></div>
+{% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Login | CloudTraffic{% endblock %}
+{% block content %}
+<div class="login">
+<div class="login-box">
+<div class="brand login-brand"><b>CT</b><strong>CloudTraffic</strong></div>
+<span>SECURE TRAFFIC CONTROL</span>
+<h1>Smart traffic.<br><em>One cloud.</em></h1>
+<p>Real-time monitoring, prediction and analytics for smart-city road networks.</p>
+<form method="POST">
+<label>Email</label><input type="email" name="email" value="admin@cloudtraffic.local" required>
+<label>Password</label><input type="password" name="password" value="Admin@123" required>
+<button>Enter Command Center →</button>
+</form>
+<small>🔒 Administrator session protected</small>
+</div>
+<div class="login-art"><h2>Smarter roads.<br>Faster decisions.</h2></div>
+</div>
+{% endblock %}

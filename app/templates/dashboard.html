@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Command Center{% endblock %}
+{% block page_title %}Command Center{% endblock %}
+{% block content %}
+<section class="hero"><div><span>● LIVE NETWORK</span><h2>Traffic intelligence<br>at a <em>glance.</em></h2><p>Centralized telemetry from {{ junctions|length }} smart junctions. Monitor congestion, sensors and predicted traffic from one cloud control plane.</p></div><a class="button" href="{{ url_for('main.monitor') }}">Open live monitor →</a></section>
+<section class="metrics">
+<div><small>MONITORED JUNCTIONS</small><b>{{ junctions|length }}</b><span>Active road nodes</span></div>
+<div><small>VEHICLES DETECTED</small><b>{{ vehicles }}</b><span>Latest telemetry</span></div>
+<div><small>NETWORK DENSITY</small><b>{{ avg }}%</b><span>{{ "Elevated flow" if avg>=60 else "Normal flow" }}</span></div>
+<div><small>SENSOR STATUS</small><b>{{ online }}</b><span>Online sensors</span></div>
+</section>
+<section class="grid">
+<div class="card"><div class="head"><div><small>ROAD NETWORK</small><h3>Live junction status</h3></div><a href="{{ url_for('main.junctions') }}">Manage →</a></div>
+{% for x in data %}
+<div class="row"><i class="{{ x.level|lower }}"></i><div><b>{{ x.name }}</b><small>{{ x.zone }}</small></div><strong>{{ x.vehicles }}</strong><span>{{ x.speed }} km/h</span><em class="{{ x.level|lower }}">{{ x.level }}</em></div>
+{% else %}<div class="empty">No active junctions.</div>{% endfor %}
+</div>
+<div class="card"><div class="head"><div><small>NETWORK SIGNAL</small><h3>Traffic volume profile</h3></div></div><canvas id="trafficChart"></canvas></div>
+</section>
+<section class="card"><div class="head"><div><small>SMART CITY MAP</small><h3>Junction activity map</h3></div><span>● LIVE</span></div><div class="map">{% for x in data %}<div class="pin pin{{ loop.index }} {{ x.level|lower }}">{{ loop.index }}</div>{% endfor %}<div class="maplabel">CITY TRAFFIC NETWORK</div></div></section>
+<script>window.dashboardData={{ data|tojson }};</script>
+{% endblock %}

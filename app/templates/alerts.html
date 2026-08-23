@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Alerts{% endblock %}{% block page_title %}Traffic Alerts{% endblock %}
+{% block content %}
+<div class="card"><small>EVENT ENGINE</small><h3>Congestion alerts</h3>{% for a in alerts %}<div class="alert"><div><b>{{a.severity}}</b><strong>{{a.junction.name}}</strong><p>{{a.message}}</p><small>{{a.created_at.strftime("%d %b %Y %H:%M")}}</small></div>{% if not a.resolved %}<form method="POST" action="{{url_for('main.resolve',id=a.id)}}"><button class="button">Resolve</button></form>{% else %}<span>RESOLVED</span>{% endif %}</div>{% else %}<div class="empty">No alerts.</div>{% endfor %}</div>
+{% endblock %}

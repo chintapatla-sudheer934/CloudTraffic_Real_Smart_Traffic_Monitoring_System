@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Audit{% endblock %}{% block page_title %}Audit Trail{% endblock %}
+{% block content %}
+<div class="card"><small>SECURITY & OBSERVABILITY</small><h3>System activity</h3>{% for l in logs %}<div class="audit"><b>{{l.action.replace("_"," ")}}</b><p>{{l.details}}</p><small>{{l.created_at.strftime("%d %b %Y %H:%M:%S")}}</small></div>{% else %}<div class="empty">No activity.</div>{% endfor %}</div>
+{% endblock %}

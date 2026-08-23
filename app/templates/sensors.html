@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Sensors{% endblock %}{% block page_title %}Sensor Network{% endblock %}
+{% block content %}
+<section class="grid"><div class="card"><small>REGISTER DEVICE</small><h3>IoT sensor</h3><form method="POST" class="form"><label>Sensor code<input name="sensor_code" required></label><label>Junction<select name="junction_id">{% for j in junctions %}<option value="{{j.id}}">{{j.name}}</option>{% endfor %}</select></label><label>Type<select name="sensor_type"><option>CAMERA</option><option>RADAR</option><option>LOOP</option><option>ANPR</option></select></label><button class="button">Register sensor →</button></form></div><div class="card"><small>EDGE TELEMETRY</small><h3>Device health</h3><p>Connected traffic sensors form the edge layer of the cloud architecture.</p></div></section>
+<div class="card"><small>REGISTERED DEVICES</small><h3>{{sensors|length}} sensors</h3><table><tr><th>CODE</th><th>JUNCTION</th><th>TYPE</th><th>STATUS</th></tr>{% for s in sensors %}<tr><td>{{s.sensor_code}}</td><td>{{s.junction.name}}</td><td>{{s.sensor_type}}</td><td>{{s.status}}</td></tr>{% endfor %}</table></div>
+{% endblock %}

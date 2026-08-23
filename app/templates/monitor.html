@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Live Monitor{% endblock %}
+{% block page_title %}Live Traffic Monitor{% endblock %}
+{% block content %}
+<div class="toolbar"><form><select name="junction" onchange="this.form.submit()">{% for j in junctions %}<option value="{{j.id}}" {% if selected==j.id %}selected{% endif %}>{{j.name}} — {{j.zone}}</option>{% endfor %}</select></form><a class="button" href="{{ url_for('main.prediction_page') }}">View prediction →</a></div>
+<section class="grid">
+<div class="card"><small>TELEMETRY INGESTION</small><h3>Record sensor observation</h3>
+<form method="POST" action="{{ url_for('main.telemetry') }}" class="form">
+<label>Junction<select name="junction_id">{% for j in junctions %}<option value="{{j.id}}" {% if selected==j.id %}selected{% endif %}>{{j.name}}</option>{% endfor %}</select></label>
+<label>Vehicles<input type="number" name="vehicles" min="0" required></label>
+<label>Average speed<input type="number" name="speed" step="0.1" min="0" required></label>
+<label>Density %<input type="number" name="density" step="0.1" min="0" max="100" required></label>
+<button class="button">Process telemetry →</button>
+</form></div>
+<div class="card dark"><small>CURRENT JUNCTION</small><h3>{{ junction.name if junction else "No junction" }}</h3><p>{{ junction.zone if junction else "" }}</p><b>● SENSOR STREAM ACTIVE</b></div>
+</section>
+<div class="card"><small>OBSERVATION HISTORY</small><h3>Recent sensor events</h3><table><tr><th>TIME</th><th>VEHICLES</th><th>SPEED</th><th>DENSITY</th></tr>{% for r in records %}<tr><td>{{r.recorded_at.strftime("%d %b %H:%M")}}</td><td>{{r.vehicle_count}}</td><td>{{r.average_speed}} km/h</td><td>{{r.density}}%</td></tr>{% endfor %}</table></div>
+{% endblock %}

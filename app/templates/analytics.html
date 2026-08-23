@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Analytics{% endblock %}{% block page_title %}Traffic Analytics{% endblock %}
+{% block content %}
+<div class="toolbar"><form><select name="junction" onchange="this.form.submit()">{% for j in junctions %}<option value="{{j.id}}" {% if selected==j.id %}selected{% endif %}>{{j.name}}</option>{% endfor %}</select></form></div>
+<div class="card"><small>24-HOUR CLOUD TELEMETRY</small><h3>{{junction.name if junction else "Traffic Network"}}</h3><canvas id="analyticsChart"></canvas></div>
+<script>window.analyticsSeries={{series|tojson}};</script>
+{% endblock %}

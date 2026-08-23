@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Junctions{% endblock %}{% block page_title %}Junction Management{% endblock %}
+{% block content %}
+<section class="grid"><div class="card"><small>ADD SMART JUNCTION</small><h3>Register road node</h3><form method="POST" class="form"><label>Name<input name="name" required></label><label>Zone<input name="zone" required></label><label>Latitude<input name="latitude" type="number" step="any" required></label><label>Longitude<input name="longitude" type="number" step="any" required></label><button class="button">Register junction →</button></form></div><div class="card"><small>CLOUD NETWORK</small><h3>Architecture</h3><p>IoT sensors → Cloud API → Analytics → Command Center</p></div></section>
+<div class="card"><small>CONFIGURED NODES</small><h3>Smart junctions</h3><table><tr><th>NAME</th><th>ZONE</th><th>COORDINATES</th><th>MODE</th></tr>{% for j in junctions %}<tr><td>{{j.name}}</td><td>{{j.zone}}</td><td>{{j.latitude}}, {{j.longitude}}</td><td>{{j.signal_mode}}</td></tr>{% endfor %}</table></div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}CloudTraffic{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+{% if current_user.is_authenticated %}
+<div class="layout">
+<aside class="sidebar">
+<div class="brand"><b>CT</b><div><strong>CloudTraffic</strong><small>SMART MOBILITY CLOUD</small></div></div>
+<nav>
+<a href="{{ url_for('main.dashboard') }}" class="{% if request.endpoint=='main.dashboard' %}active{% endif %}">▦ Overview</a>
+<a href="{{ url_for('main.monitor') }}" class="{% if request.endpoint=='main.monitor' %}active{% endif %}">◈ Live Monitor</a>
+<a href="{{ url_for('main.prediction_page') }}" class="{% if request.endpoint=='main.prediction_page' %}active{% endif %}">⌁ Prediction</a>
+<a href="{{ url_for('main.junctions') }}" class="{% if request.endpoint=='main.junctions' %}active{% endif %}">⌖ Junctions</a>
+<a href="{{ url_for('main.sensors') }}" class="{% if request.endpoint=='main.sensors' %}active{% endif %}">◉ Sensors</a>
+<a href="{{ url_for('main.alerts') }}" class="{% if request.endpoint=='main.alerts' %}active{% endif %}">⚠ Alerts</a>
+<a href="{{ url_for('main.analytics') }}" class="{% if request.endpoint=='main.analytics' %}active{% endif %}">◒ Analytics</a>
+<a href="{{ url_for('main.audit_logs') }}" class="{% if request.endpoint=='main.audit_logs' %}active{% endif %}">☷ Audit</a>
+</nav>
+<div class="side-bottom">● Cloud telemetry online<br><a href="{{ url_for('auth.logout') }}">↪ Sign out</a></div>
+</aside>
+<main class="main">
+<header><div><small>SMART CITY / REAL-TIME CLOUD</small><h1>{% block page_title %}Command Center{% endblock %}</h1></div><div class="user">{{ current_user.name }}<small>{{ current_user.role }}</small></div></header>
+{% else %}
+<main>
+{% endif %}
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}
+{% endwith %}
+{% block content %}{% endblock %}
+</main>
+<script src="{{ url_for('static',filename='js/app.js') }}"></script>
+</body>
+</html>
